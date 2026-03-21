@@ -1,0 +1,31 @@
+{
+  "devices": [
+    {
+      "id": "plug_001",
+      "name": "Heladera Principal",
+      "location": "Depósito",
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": "04:00",
+      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:29:15.267601"
+    },
+    {
+      "id": "plug_002",
+      "name": "Freezer Exhibidor",
+      "location": "Local",
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": "04:00",
+      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:29:15.267690"
+    },
+    {
+      "id": "plug_003",
+      "name": "Aire Acondicionado",
+      "location": "Local",
+      "status": "off",
+      "cold_chain": false,
+      "scheduled_off": null,
+      "last_action": null
+    }
+  ]
+}
