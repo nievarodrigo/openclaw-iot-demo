@@ -1,0 +1,105 @@
+"""
+OpenClaw IoT Demo — Dashboard
+Ejecutar con: streamlit run dashboard.py
+"""
+
+import json
+import time
+from datetime import datetime
+from pathlib import Path
+
+import streamlit as st
+
+from src.dashboard.metrics import estimate_savings, estimate_cost_savings
+from src.repositories.weather_repository import WeatherRepository
+
+st.set_page_config(
+    page_title="OpenClaw IoT",
+    page_icon="🦞",
+    layout="wide",
+)
+
+# ── CSS minimalista ───────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+    .block-container { padding-top: 1.2rem; padding-bottom: 0; }
+    h1 { font-size: 1.4rem !important; margin-bottom: 0 !important; }
+    [data-testid="stMetricValue"] { font-size: 1.5rem !important; }
+    [data-testid="stMetricLabel"] { font-size: 0.75rem !important; }
+    hr { margin: 0.5rem 0 !important; }
+    .device-row { font-size: 0.85rem; }
+</style>
+""", unsafe_allow_html=True)
+
+DEVICES_PATH = Path("data/devices.json")
+
+
+def load_devices() -> list[dict]:
+    with open(DEVICES_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)["devices"]
+
+
+@st.cache_data(ttl=300)
+def load_forecast():
+    try:
+        return WeatherRepository().get_tomorrow_forecast()
+    except Exception:
+        return None
+
+
+# ── Datos ─────────────────────────────────────────────────────────────────────
+devices  = load_devices()
+forecast = load_forecast()
+kwh      = estimate_savings(devices)
+cost     = estimate_cost_savings(kwh)
+active   = sum(1 for d in devices if d["status"] == "on")
+scheduled = sum(1 for d in devices if d.get("scheduled_off"))
+
+# ── Header ────────────────────────────────────────────────────────────────────
+left, right = st.columns([6, 2])
+left.markdown("## 🦞 OpenClaw IoT Dashboard")
+right.caption(f"🔄 {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+st.divider()
+
+# ── KPIs + Clima en una sola fila ─────────────────────────────────────────────
+k1, k2, k3, k4, sep, w1, w2, w3 = st.columns([2, 2, 2, 2, 0.3, 2, 2, 2])
+
+k1.metric("⚡ Activos",    f"{active}/{len(devices)}")
+k2.metric("⏰ Programados", scheduled)
+k3.metric("💡 KWh ahorro", f"{kwh}")
+k4.metric("💰 ARS ahorro", f"${cost:,.0f}")
+
+sep.markdown("<div style='border-left:1px solid #ddd;height:60px;margin:auto'></div>", unsafe_allow_html=True)
+
+if forecast:
+    w1.metric("🌡️ Máx. mañana", f"{forecast.max_temp}°C")
+    w2.metric("🌡️ Mín. mañana", f"{forecast.min_temp}°C")
+    w3.metric("🌧️ Lluvia",       f"{forecast.precipitation}mm")
+else:
+    w1.warning("Sin pronóstico")
+
+st.divider()
+
+# ── Dispositivos ──────────────────────────────────────────────────────────────
+st.markdown("**🔌 Dispositivos**")
+
+header = st.columns([3, 2, 2, 4])
+for col, label in zip(header, ["Nombre", "Estado", "Apagado", "Última acción"]):
+    col.caption(label)
+
+for device in devices:
+    row = st.columns([3, 2, 2, 4])
+    status_icon = "🟢" if device["status"] == "on" else "🔴"
+    cold = " ❄️" if device["cold_chain"] else ""
+    row[0].markdown(f"{status_icon} **{device['name']}**{cold}")
+    row[1].markdown(f"`{device['status'].upper()}`")
+    row[2].markdown(f"`{device['scheduled_off']}`" if device.get("scheduled_off") else "—")
+    row[3].caption(device.get("last_action") or "—")
+
+st.divider()
+st.caption(f"{'🌤️ ' + forecast.description.capitalize() if forecast else ''} · Actualización automática cada 30s")
+
+# ── Auto-refresh ──────────────────────────────────────────────────────────────
+with st.empty():
+    time.sleep(30)
+    st.rerun()
