@@ -60,11 +60,13 @@ def non_cold_chain_device():
 
 class TestTemperatureStrategy:
 
-    def test_hot_day_returns_early_shutdown(self, strategy, hot_forecast):
-        assert strategy.decide_shutdown_hour(hot_forecast) == 2
+    def test_hot_day_returns_late_shutdown(self, strategy, hot_forecast):
+        """Día caluroso → apagar más tarde (ambiente calienta más rápido la heladera)."""
+        assert strategy.decide_shutdown_hour(hot_forecast) == 4
 
-    def test_normal_day_returns_late_shutdown(self, strategy, normal_forecast):
-        assert strategy.decide_shutdown_hour(normal_forecast) == 4
+    def test_normal_day_returns_early_shutdown(self, strategy, normal_forecast):
+        """Día normal → apagar más temprano (ambiente frío ayuda a mantener temperatura)."""
+        assert strategy.decide_shutdown_hour(normal_forecast) == 2
 
     def test_applies_to_cold_chain_device(self, strategy, cold_chain_device):
         assert strategy.should_apply(cold_chain_device) is True
@@ -75,9 +77,9 @@ class TestTemperatureStrategy:
     def test_describe_hot_day_mentions_temperature(self, strategy, hot_forecast):
         description = strategy.describe(hot_forecast)
         assert "32" in description
-        assert "02:00" in description
+        assert "04:00" in description
 
     def test_describe_normal_day_mentions_temperature(self, strategy, normal_forecast):
         description = strategy.describe(normal_forecast)
         assert "22" in description
-        assert "04:00" in description
+        assert "02:00" in description

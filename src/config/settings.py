@@ -32,8 +32,8 @@ class AppConfig:
     device: DeviceConfig = field(default_factory=DeviceConfig)
     notification: NotificationConfig = field(default_factory=NotificationConfig)
     high_temp_threshold: float = 28.0   # °C — por encima se considera "caluroso"
-    shutdown_hour_hot: int = 2          # hora de apagado si hace calor
-    shutdown_hour_normal: int = 4       # hora de apagado en día normal
+    shutdown_hour_hot: int = 4          # día caluroso → apagar más tarde (ambiente calienta más rápido)
+    shutdown_hour_normal: int = 2       # día normal → apagar más temprano (ambiente ayuda a mantener frío)
 
 
 # Singleton de configuración
