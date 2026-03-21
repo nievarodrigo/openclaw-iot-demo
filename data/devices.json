@@ -7,7 +7,7 @@
       "status": "on",
       "cold_chain": true,
       "scheduled_off": "04:00",
-      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:29:15.267601"
+      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:53:37.518985"
     },
     {
       "id": "plug_002",
@@ -16,7 +16,7 @@
       "status": "on",
       "cold_chain": true,
       "scheduled_off": "04:00",
-      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:29:15.267690"
+      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:53:37.519076"
     },
     {
       "id": "plug_003",
