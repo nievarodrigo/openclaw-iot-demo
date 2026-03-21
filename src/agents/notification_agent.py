@@ -1,7 +1,8 @@
 from typing import List
 from src.agents.base_agent import BaseAgent
 from src.notifications.base_notifier import BaseNotifier
-from src.notifications.whatsapp_notifier import WhatsAppNotifier, ConsoleNotifier
+from src.notifications.whatsapp_notifier import ConsoleNotifier
+from src.notifications.email_notifier import EmailNotifier
 from src.repositories.weather_repository import WeatherForecast
 
 
@@ -16,7 +17,7 @@ class NotificationAgent(BaseAgent):
     ):
         self._forecast = forecast
         self._actions = actions
-        self._notifiers = notifiers or [WhatsAppNotifier(), ConsoleNotifier()]
+        self._notifiers = notifiers or [EmailNotifier(), ConsoleNotifier()]
 
     @property
     def name(self) -> str:
