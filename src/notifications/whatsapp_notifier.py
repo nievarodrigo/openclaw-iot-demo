@@ -4,7 +4,7 @@ from src.config.settings import config
 
 
 class WhatsAppNotifier(BaseNotifier):
-    """Envía notificaciones via wacli (skill de OpenClaw)."""
+    """Envía notificaciones via openclaw message send (usa la sesión activa del gateway)."""
 
     def __init__(self, number: str = None):
         self._number = number or config.notification.whatsapp_number
@@ -16,18 +16,21 @@ class WhatsAppNotifier(BaseNotifier):
 
         try:
             result = subprocess.run(
-                ["wacli", "send", "--to", self._number, "--message", message],
+                [
+                    "openclaw", "message", "send",
+                    "--target", self._number,
+                    "--message", message,
+                ],
                 capture_output=True,
                 text=True,
-                timeout=15,
+                timeout=20,
             )
             if result.returncode == 0:
                 print(f"[WhatsApp] Mensaje enviado a {self._number} ✅")
             else:
-                print(f"[WhatsApp] Error al enviar: {result.stderr}")
+                print(f"[WhatsApp] Error al enviar: {result.stderr.strip()}")
         except FileNotFoundError:
-            # wacli no instalado — modo simulación
-            print(f"[WhatsApp SIMULADO] → {self._number}: {message}")
+            print("[WhatsApp] openclaw CLI no encontrado — verificar instalación")
         except subprocess.TimeoutExpired:
             print("[WhatsApp] Timeout al enviar mensaje")
 

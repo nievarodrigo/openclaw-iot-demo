@@ -6,8 +6,8 @@
       "location": "Depósito",
       "status": "on",
       "cold_chain": true,
-      "scheduled_off": "04:00",
-      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:53:37.518985"
+      "scheduled_off": "02:00",
+      "last_action": "SCHEDULED OFF @ 02:00 — 2026-03-21T18:33:02.750053"
     },
     {
       "id": "plug_002",
@@ -15,8 +15,8 @@
       "location": "Local",
       "status": "on",
       "cold_chain": true,
-      "scheduled_off": "04:00",
-      "last_action": "SCHEDULED OFF @ 04:00 — 2026-03-21T16:53:37.519076"
+      "scheduled_off": "02:00",
+      "last_action": "SCHEDULED OFF @ 02:00 — 2026-03-21T18:33:02.750115"
     },
     {
       "id": "plug_003",
