@@ -15,7 +15,7 @@ from src.agents.agent_factory import AgentFactory
 from src.dashboard.metrics import estimate_savings, estimate_cost_savings
 from src.repositories.device_repository import DeviceRepository
 from src.repositories.savings_repository import SavingsRepository
-from src.strategies.temperature_strategy import TemperatureStrategy
+from src.strategies.business_hours_strategy import BusinessHoursStrategy
 
 
 def main():
@@ -39,7 +39,7 @@ def main():
     devices = DeviceRepository().get_all()
     kwh = estimate_savings([d.to_dict() for d in devices])
     ars = estimate_cost_savings(kwh)
-    strategy = TemperatureStrategy()
+    strategy = BusinessHoursStrategy()
     shutdown_hour = strategy.decide_shutdown_hour(forecast)
 
     SavingsRepository().save_run(
