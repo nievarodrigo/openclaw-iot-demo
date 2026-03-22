@@ -1,14 +1,26 @@
 from src.devices.base_device import DeviceState
 
 
-# KW estimados por tipo de dispositivo (promedio real)
+# KW estimados por tipo de dispositivo (consumo comercial real)
 DEVICE_KW = {
-    "Heladera Principal": 0.15,
-    "Freezer Exhibidor":  0.20,
-    "Aire Acondicionado": 1.50,
+    # Heladeras verticales (lácteos, fiambres, bebidas)
+    "Heladera Lácteos":    0.15,
+    "Heladera Fiambres":   0.15,
+    "Heladera Bebidas 1":  0.15,
+    "Heladera Bebidas 2":  0.15,
+    # Exhibidoras horizontales
+    "Exhibidora Carnes":   0.20,
+    "Exhibidora Quesos":   0.20,
+    # Freezers
+    "Freezer Helados":     0.25,
+    "Freezer Congelados":  0.25,
+    # Legacy
+    "Heladera Principal":  0.15,
+    "Freezer Exhibidor":   0.20,
+    "Aire Acondicionado":  1.50,
 }
 
-DEFAULT_KW = 0.10
+DEFAULT_KW = 0.15
 
 
 def estimate_savings(devices: list[dict]) -> float:

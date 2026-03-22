@@ -2,28 +2,73 @@
   "devices": [
     {
       "id": "plug_001",
-      "name": "Heladera Principal",
+      "name": "Heladera Lácteos",
       "location": "Depósito",
       "status": "on",
       "cold_chain": true,
-      "scheduled_off": "02:00",
-      "last_action": "SCHEDULED OFF @ 02:00 — 2026-03-21T18:33:02.750053"
+      "scheduled_off": null,
+      "last_action": null
     },
     {
       "id": "plug_002",
-      "name": "Freezer Exhibidor",
-      "location": "Local",
+      "name": "Heladera Fiambres",
+      "location": "Depósito",
       "status": "on",
       "cold_chain": true,
-      "scheduled_off": "02:00",
-      "last_action": "SCHEDULED OFF @ 02:00 — 2026-03-21T18:33:02.750115"
+      "scheduled_off": null,
+      "last_action": null
     },
     {
       "id": "plug_003",
-      "name": "Aire Acondicionado",
+      "name": "Heladera Bebidas 1",
       "location": "Local",
-      "status": "off",
-      "cold_chain": false,
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": null,
+      "last_action": null
+    },
+    {
+      "id": "plug_004",
+      "name": "Heladera Bebidas 2",
+      "location": "Local",
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": null,
+      "last_action": null
+    },
+    {
+      "id": "plug_005",
+      "name": "Exhibidora Carnes",
+      "location": "Local",
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": null,
+      "last_action": null
+    },
+    {
+      "id": "plug_006",
+      "name": "Exhibidora Quesos",
+      "location": "Local",
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": null,
+      "last_action": null
+    },
+    {
+      "id": "plug_007",
+      "name": "Freezer Helados",
+      "location": "Depósito",
+      "status": "on",
+      "cold_chain": true,
+      "scheduled_off": null,
+      "last_action": null
+    },
+    {
+      "id": "plug_008",
+      "name": "Freezer Congelados",
+      "location": "Depósito",
+      "status": "on",
+      "cold_chain": true,
       "scheduled_off": null,
       "last_action": null
     }
